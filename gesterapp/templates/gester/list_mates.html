@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}
+{{ block.super }} | Mates
+{% endblock htmltitle %}
+
+{% block main %}
+
+{% if mensaje %}
+    <div class="mensaje">{{ mensaje }}</div>
+{% endif %}
+        <h2>Mates</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>C&oacute;digo</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
+        {% for foo in mate %}
+            <tbody>
+                <tr>
+                    <td>{{ foo.id }}</td>
+                    <td>
+                        {% if foo.color == 'RO' %}
+                            Rojo
+                        {% elif foo.color == 'MA' %}
+                            Marr&oacute;n
+                        {% elif foo.color = 'AM' %}
+                            Amarillo
+                        {% elif foo.color = 'NA' %}
+                            Naranja
+                        {% elif foo.color = 'RS' %}
+                            Rosa
+                        {% elif foo.color = 'VI' %}
+                            Violeta
+                        {% elif foo.color = 'AZ' %}
+                            Azul
+                        {% elif foo.color = 'VE' %}
+                            Verde
+                        {% elif foo.color = 'BL' %}
+                            Blanco
+                        {% elif foo.color = 'GR' %}
+                            Gris
+                        {% elif foo.color = 'NE' %}
+                            Negro
+                        {% else %}
+                            Color Raro
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+
+{% endblock main %}

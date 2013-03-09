@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}{{ block.super }} | A&ntilde;adir bombilla{% endblock %}
+
+{% block main %}
+    <h1>A&ntilde;adir bombilla</h1>
+    <br />
+    <form action="" method="post">
+        {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+        <input class="btn" type="submit" value="Crear" />
+    </form>
+{% endblock %}

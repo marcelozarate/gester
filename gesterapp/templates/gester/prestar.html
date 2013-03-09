@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}
+{{ block.super }} | Efectuar pr&eacute;stamo
+{% endblock htmltitle %}
+
+{% block main %}
+
+<style>
+.ui-helper-hidden-accessible { display:none; }
+</style>
+
+<script type="text/javascript">
+    $(function() {
+      $("#usuarios").autocomplete({
+        source: "{% url get_usuarios %}",
+        minLength: 2,
+      });
+    });
+</script>
+
+{% if mensaje %}
+    <div class="mensaje">{{ mensaje }}</div>
+{% endif %}
+        <h2>Efectuar Pr&eacute;stamo</h2>
+            <h5>(Ingresar todos los datos)</h5>
+                <div class="ui-widget">
+                  <label for="usuarios">Usuario: </label>
+                  <input id="usuarios">
+                </div>
+
+{% endblock main %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}
+{{ block.super }} | Pr&eacute;stamos
+{% endblock htmltitle %}
+
+{% block main %}
+
+{% if mensaje %}
+    <div class="mensaje">{{ mensaje }}</div>
+{% endif %}
+        <h2>Pr&eacute;stamos</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>C&oacute;digo</th>
+                    <th>Nombre</th>
+                    <th>Termo</th>
+                    <th>Mate</th>
+                    <th>Bombilla</th>
+                    <th>Fecha</th>
+                    <th>&iquest;Devuelto?</th>
+                    <th>Fecha Devoluci&oacute;n</th>
+                </tr>
+            </thead>
+        {% for foo in prestamo %}
+            <tbody>
+                <tr>
+                    <td>{{ foo.id }}</td>
+                    <td>{{ foo.cliente }}</td>
+                    <td>{{ foo.termo }}</td>
+                    <td>{{ foo.mate }}</td>
+                    <td>{{ foo.bombilla }}</td>
+                    <td>{{ foo.fecha }}</td>
+                    <td>{{ foo.devuelto }}</td>
+                    <td>{{ foo.fecha_devolucion }}</td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+
+{% endblock main %}

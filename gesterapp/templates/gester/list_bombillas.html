@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}
+{{ block.super }} | Bombillas
+{% endblock htmltitle %}
+
+{% block main %}
+
+{% if mensaje %}
+    <div class="mensaje">{{ mensaje }}</div>
+{% endif %}
+        <h2>Bombillas</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>C&oacute;digo</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+        {% for foo in bombilla %}
+            <tbody>
+                <tr>
+                    <td>{{ foo.id }}</td>
+                    <td>
+                        {% if foo.tipo == 'C' %}
+                            Cl&aacute;sica
+                        {% elif foo.tipo == 'R' %}
+                            Resorte
+                        {% else %}
+                            Tipo desconocido
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+
+{% endblock main %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}
+{{ block.super }} | {{user}}
+{% endblock htmltitle %}
+
+{% block main %}
+<h1>&iexcl;Bienvenido {{user}}!</h1>
+<br />
+Utiliza el men&uacute; superior para navegar a trav&eacute;s de las distintas opciones.
+{% endblock main %}

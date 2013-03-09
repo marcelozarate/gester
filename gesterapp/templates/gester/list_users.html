@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block htmltitle %}
+{{ block.super }} | Usuarios
+{% endblock htmltitle %}
+
+{% block main %}
+
+{% if mensaje %}
+    <div class="mensaje">{{ mensaje }}</div>
+{% endif %}
+        <h2>Usuarios</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>C&oacute;digo</th>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Carrera</th>
+                    <th>Facultad</th>
+                </tr>
+            </thead>
+        {% for foo in usuario %}
+            <tbody>
+                <tr>
+                    <td>{{ foo.id }}</td>
+                    <td>{{ foo.nombre }}</td>
+                    <td>{{ foo.dni }}</td>
+                    <td>{{ foo.carrera }}</td>
+                    <td>{{ foo.facultad }}</td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+
+{% endblock main %}
