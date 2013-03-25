@@ -15,6 +15,7 @@
                 <tr>
                     <th>C&oacute;digo</th>
                     <th>Color</th>
+                    <th>Disponible</th>
                 </tr>
             </thead>
         {% for foo in mate %}
@@ -46,6 +47,12 @@
                             Negro
                         {% else %}
                             Color Raro
+                        {% endif %}
+                    </td>
+                    <td>{% if foo.disponible %}
+                            <i class="icon-ok-sign"></i>
+                        {% else %}
+                            <i class="icon-remove-sign"></i>
                         {% endif %}
                     </td>
                 </tr>

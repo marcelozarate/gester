@@ -42,6 +42,7 @@ COLOR_CHOICES = (
 class Mate(models.Model):
     color = models.CharField(max_length=2,
         choices=COLOR_CHOICES, default=u'RO')
+    disponible = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.color
@@ -50,6 +51,7 @@ class Mate(models.Model):
 class Termo(models.Model):
     color = models.CharField(max_length=2,
         choices=COLOR_CHOICES, default=u'NA')
+    disponible = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.color
@@ -64,6 +66,7 @@ TIPOBOMBI_CHOICES = (
 class Bombilla(models.Model):
     tipo = models.CharField(max_length=1,
         choices=TIPOBOMBI_CHOICES, default=u'C')
+    disponible = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.tipo
@@ -86,9 +89,9 @@ class Usuario(models.Model):
 
 class Prestamo(models.Model):
     cliente = models.ForeignKey(Usuario, null=False, blank=False)
-    mate = models.ForeignKey(Mate, null=False, blank=False)
-    termo = models.ForeignKey(Termo, null=False, blank=False)
-    bombilla = models.ForeignKey(Bombilla, null=False, blank=False)
+    mate = models.ForeignKey(Mate, null=True, blank=True)
+    termo = models.ForeignKey(Termo, null=True, blank=True)
+    bombilla = models.ForeignKey(Bombilla, null=True, blank=True)
     fecha = models.DateTimeField(null=False, blank=False)
     devuelto = models.BooleanField(default=False)
     fecha_devolucion = models.DateTimeField(null=True, blank=True)

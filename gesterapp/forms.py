@@ -15,6 +15,12 @@ class TermoForm(ModelForm):
         model = Termo
 
 
+class MateUpdateForm(ModelForm):
+    class Meta:
+        model = Mate
+        exclude = ('color',)
+
+
 class MateForm(ModelForm):
     class Meta:
         model = Mate
@@ -26,8 +32,18 @@ class BombillaForm(ModelForm):
 
 
 class PrestamoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PrestamoForm, self).__init__(*args, **kwargs)  # populates post
+#        if self.instance:
+        self.fields['mate'].queryset = Mate.objects.filter(disponible=True)
+        self.fields['termo'].queryset = Termo.objects.filter(disponible=True)
+        self.fields['bombilla'].queryset = Bombilla.objects.filter(
+            disponible=True)
+
     class Meta:
         model = Prestamo
+#      mate = forms.ModelChoices(queryset=Mate.objects.filter(disponible=True))
         exclude = ('cliente',
                     'fecha',
                     'devuelto',

@@ -9,12 +9,15 @@
     </style>
 
     <script type="text/javascript">
-        $(function() {
-          $("#usuarios").autocomplete({
-            source: "{% url get_usuarios %}",
+    jQuery(document).ready(function(){
+
+        $("#usuarios").autocomplete({
+            source: "{% url get-usuarios %}",
             minLength: 2,
           });
-        });
+
+    });
+
     </script>
 
     <h1>Efectuar pr&eacute;stamo</h1>
@@ -25,9 +28,10 @@
             <table>
                 <tr>
                 <td>
+                <div class="ui-widget">
                     <div class="ui-widget">
                       <label for="usuarios">Usuario: </label></td><td>
-                      <input id="usuarios" name="usuarios">
+                      <input id="usuarios" name="usuarios" />
                     </div>
                     </td>
                 </tr>

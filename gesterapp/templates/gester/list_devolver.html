@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block htmltitle %}
-{{ block.super }} | Pr&eacute;stamos
+{{ block.super }} | Faltantes
 {% endblock htmltitle %}
 
 {% block main %}
@@ -9,7 +9,7 @@
 {% if mensaje %}
     <div class="mensaje">{{ mensaje }}</div>
 {% endif %}
-        <h2>Pr&eacute;stamos</h2>
+        <h2>Faltantes</h2>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -19,11 +19,10 @@
                     <th>Mate</th>
                     <th>Bombilla</th>
                     <th>Fecha</th>
-                    <th>&iquest;Devuelto?</th>
-                    <th>Fecha Devoluci&oacute;n</th>
+                    <th>Devolver</th>
                 </tr>
             </thead>
-        {% for foo in prestamo %}
+        {% for foo in faltante %}
             <tbody>
                 <tr>
                     <td>{{ foo.id }}</td>
@@ -32,19 +31,7 @@
                     <td>{{ foo.mate }}</td>
                     <td>{{ foo.bombilla }}</td>
                     <td>{{ foo.fecha }}</td>
-                    <td>{% if foo.devuelto %}
-                            <i class="icon-ok-sign"></i>
-                        {% else %}
-                            <i class="icon-remove-sign"></i>
-                        {% endif %}
-                    </td>
-                    <td>
-                    {% if foo.fecha_devolucion == None %}
-                        -
-                        {% else %}
-                        asd
-                    {% endif %}
-                    </td>
+                    <td><a href="{% url devolver foo.id %}"><i class="icon-arrow-left"></i></a></td>
                 </tr>
             </tbody>
         {% endfor %}

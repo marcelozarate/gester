@@ -70,11 +70,11 @@
                 <ul class="dropdown-menu">
                   <li class="nav-header">Pr&eacute;stamos</li>
                   <li><a href="{% url add-prestamo %}"><i class="icon-share-alt"></i> Efectuar pr&eacute;stamos</a></li>
-                  <li><a href="#"><i class="icon-arrow-left"></i> Ingresar devoluci&oacute;n</a></li>
+                  <li><a href="{% url list-devolver %}"><i class="icon-arrow-left"></i> Ingresar devoluci&oacute;n</a></li>
                   <li><a href="{% url list-prestamos %}"><i class="icon-list"></i> Listar pr&eacute;stamos</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">Faltantes</li>
-                  <li><a href="#"><i class="icon-search"></i> Ver faltantes</a></li>
+                  <li><a href="{% url list-faltantes %}"><i class="icon-search"></i> Ver faltantes</a></li>
                 </ul>
               </li>
             </ul>
@@ -103,8 +103,10 @@
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-ui-1.10.1.custom.min.js"></script>
+    <script src="{{ STATIC_URL }}js/application.js"></script>
 
         {% block main %}{% endblock main %}
+
       </div>
 
       <hr>
@@ -114,6 +116,7 @@
       </footer>
 
     </div> <!-- /container -->
+
 
   </body>
 </html>

@@ -15,6 +15,7 @@
                 <tr>
                     <th>C&oacute;digo</th>
                     <th>Tipo</th>
+                    <th>Disponible</th>
                 </tr>
             </thead>
         {% for foo in bombilla %}
@@ -28,6 +29,12 @@
                             Resorte
                         {% else %}
                             Tipo desconocido
+                        {% endif %}
+                    </td>
+                    <td>{% if foo.disponible %}
+                            <i class="icon-ok-sign"></i>
+                        {% else %}
+                            <i class="icon-remove-sign"></i>
                         {% endif %}
                     </td>
                 </tr>

@@ -12,6 +12,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.forms.util import ErrorList
 from django.utils import simplejson
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -186,8 +187,39 @@ def list_prestamos(request, orderby=None, ordertype=None):
 
 
 @login_required
-def prestar(request):
-    return TemplateResponse(request, 'gester/prestar.html',)
+def list_faltantes(request, orderby=None, ordertype=None):
+    if "mensaje" in request.session:
+        mensaje = request.session["mensaje"]
+        del request.session["mensaje"]
+    else:
+        mensaje = ""
+    try:
+        faltantes = Prestamo.objects.filter(devuelto=False).order_by('id')
+    except faltantes.DoesNotExist:
+            return render_to_response('gester/list_faltantes.html',
+            {'faltante': faltantes,
+                "mensaje": mensaje}, context_instance=RequestContext(request))
+    return render_to_response('gester/list_faltantes.html',
+        {'faltante': faltantes, "mensaje": mensaje},
+        context_instance=RequestContext(request))
+
+
+@login_required
+def list_devolver(request, orderby=None, ordertype=None):
+    if "mensaje" in request.session:
+        mensaje = request.session["mensaje"]
+        del request.session["mensaje"]
+    else:
+        mensaje = ""
+    try:
+        faltantes = Prestamo.objects.filter(devuelto=False).order_by('id')
+    except faltantes.DoesNotExist:
+            return render_to_response('gester/list_devolver.html',
+            {'faltante': faltantes,
+                "mensaje": mensaje}, context_instance=RequestContext(request))
+    return render_to_response('gester/list_devolver.html',
+        {'faltante': faltantes, "mensaje": mensaje},
+        context_instance=RequestContext(request))
 
 
 @login_required
@@ -209,6 +241,11 @@ def get_usuarios(request):
     return HttpResponse(data, mimetype)
 
 
+#class MateChoiceField(ModelChoiceField):
+#    def label_from_instance(self, obj):
+#        return "My Object #%i" % obj.id
+
+
 @login_required
 def add_prestamo(request):
     if request.method == 'POST':
@@ -224,9 +261,33 @@ def add_prestamo(request):
             prestamo.cliente = Usuario.objects.get(nombre__exact=miuser)
             prestamo.fecha = timezone.now()
             prestamo.devuelto = False
+#            Another method to do it
+#            prestamo.mate.disponible = False
+#            prestamo.mate.save()
+
+            Mate.objects.filter(
+                pk=request.POST.get('mate')).update(disponible=False)
+            Termo.objects.filter(
+                pk=request.POST.get('termo')).update(disponible=False)
+            Bombilla.objects.filter(
+                pk=request.POST.get('bombilla')).update(disponible=False)
             prestamo.save()
             return HttpResponseRedirect(reverse('list-prestamos'))
     else:
         form = PrestamoForm()
     return TemplateResponse(request,
              'gester/add_prestamo.html', {'form': form, })
+
+
+@login_required
+def devolver(request, pres_id):
+    prestamo = get_object_or_404(Prestamo, id=pres_id)
+    prestamo.mate.disponible = True
+    prestamo.termo.disponible = True
+    prestamo.bombilla.disponible = True
+    prestamo.mate.save()
+    prestamo.termo.save()
+    prestamo.bombilla.save()
+    request.session["mensaje"] = """El prestamo
+    con id """ + pres_id + """ ha sido editado exitosamente"""
+    return HttpResponseRedirect(reverse('list-devolver'))
