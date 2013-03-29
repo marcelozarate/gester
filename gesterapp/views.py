@@ -288,6 +288,9 @@ def devolver(request, pres_id):
     prestamo.mate.save()
     prestamo.termo.save()
     prestamo.bombilla.save()
+    prestamo.devuelto = True
+    prestamo.fecha_devolucion = timezone.now()
+    prestamo.save()
     request.session["mensaje"] = """El prestamo
-    con id """ + pres_id + """ ha sido editado exitosamente"""
+    con id """ + pres_id + """ ha sido devuelto exitosamente"""
     return HttpResponseRedirect(reverse('list-devolver'))
